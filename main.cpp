@@ -17,21 +17,17 @@ int main() {
     p = new Player(p_name);*/
     p = new Player();
 
-    play_round();
-
-
-
-    cout << "Sorted hand\n";
-    p->hand->run_sort();
-    p->hand->to_string();
+    //play_round();
+    d = new Deck();
+    d->to_string();
 
     return 0;
 }
 
 void play_round(){
     d = new Deck();
-    d->fill();
-    d->shuffle(1000);
+    //d->fill();
+    //d->shuffle();
     for(int i = 0; i < 11; i++){
         p->hand->add(d->take_top());
     }
@@ -44,11 +40,11 @@ void play_round(){
 
     while(p->hand->cards_in_hand.size() != 0){
         //cout << d->discard[d->pile_i]->value;
-        if(d->discard[0]->value == -1)
+        if(d->discard.size() == 0)
             cout << "There is no card on the discard pile, Enter 2 to take a card off the top: ";
         else {
             cout << "The top of the discard pile is the ";
-            d->discard[d->pile_i - 1]->to_string();
+            d->discard.back()->to_string();
             cout << "\nWould you like this card, or draw a new card? Enter 1 for Pile, 2 for Off the Top: ";
         }
 
