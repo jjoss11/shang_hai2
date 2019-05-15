@@ -4,7 +4,10 @@
 
 #include "Deck.h"
 #include <iostream>
+#include <ctime>
+
 using namespace std;
+
 
 Deck::Deck(){
     top_i = 0;
@@ -46,6 +49,7 @@ void Deck::to_string(){
     }
 }
 void Deck::shuffle(int shuffle_count){
+    srand(time(NULL));
     for(int i = 0; i < shuffle_count; i++){
         int index_1 = rand()%(54*2);
         int index_2 = rand()%(54*2);
