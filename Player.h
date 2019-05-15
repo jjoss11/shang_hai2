@@ -15,6 +15,7 @@ public:
     int score;
     string name;
 
+    Player();
     Player(string name);
     void to_string();
 };

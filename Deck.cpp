@@ -11,6 +11,7 @@ using namespace std;
 
 Deck::Deck(){
     top_i = 0;
+    pile_i = 0;
     for(int i = 0; i < 54*2; i++){
         cards[i] = new Card();
         discard[i] = new Card();
@@ -64,6 +65,12 @@ void Deck::shuffle(int shuffle_count){
 Card* Deck::take_top(){
     Card* result = cards[top_i];
     top_i++;
+    return result;
+}
+Card* Deck::pick_off_pile() {
+    Card* result = discard[pile_i];
+    discard[pile_i] = new Card();
+    pile_i--;
     return result;
 }
 void Deck::add_to_discard_pile(Card* card) {

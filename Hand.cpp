@@ -2,8 +2,18 @@
 // Created by Jacob on 5/14/2019.
 //
 #include <iostream>
+#include <algorithm>
 #include "Hand.h"
 using namespace std;
+bool num_sort(Card *a, Card *b) {
+    return a->value > b->value;
+}
+bool suit_sort(Card *a, Card* b){
+    if(a->suit == b->suit)
+        return a->value > b->value;
+    else
+        return a->suit < b->suit;
+}
 Hand::Hand(){
     card_ct = 11;
 }
@@ -38,4 +48,11 @@ int Hand::calc_value() {
             total+=50;
     }
     return total;
+}
+
+void Hand::set_sort() {
+   sort(cards_in_hand.begin(), cards_in_hand.end(), num_sort);
+}
+void Hand::run_sort() {
+    sort(cards_in_hand.begin(), cards_in_hand.end(), suit_sort);
 }

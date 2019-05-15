@@ -19,6 +19,7 @@ public:
     void shuffle(int shuffle_count);
     Card* take_top();
     void add_to_discard_pile(Card* card);
+    Card* pick_off_pile();
 };
 
 

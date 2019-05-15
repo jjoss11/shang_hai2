@@ -5,6 +5,7 @@
 #ifndef UNTITLED_HAND_H
 #define UNTITLED_HAND_H
 #include "Deck.h"
+#include "Card.h"
 #include <vector>
 using namespace std;
 class Hand {
@@ -18,7 +19,9 @@ public:
     void add(Card* card);
     void to_string();
     int calc_value();
-    void sort();
+    void run_sort();
+    void set_sort();
+   // bool num_sort(Card* a, Card* b);
     Card* remove(int i);
 };
 
