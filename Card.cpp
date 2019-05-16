@@ -56,3 +56,6 @@ void Card::to_string(){
     cout << "\n";
 }
 
+bool Card::equals(Card *c) {
+    return((value == c->value) && (suit == c->suit));
+}

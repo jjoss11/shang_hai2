@@ -14,6 +14,7 @@ public:
     Card();
     Card(int v, Suit s);
     void to_string();
+    bool equals(Card* c);
 };
 
 
