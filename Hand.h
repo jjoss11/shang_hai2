@@ -6,12 +6,13 @@
 #define UNTITLED_HAND_H
 #include "Deck.h"
 #include "Card.h"
+#include "Set.h"
 #include <vector>
 using namespace std;
 class Hand {
 public:
     vector<Card*> cards_in_hand;
-    vector<Card*> cards_on_table;
+    vector<Set*> sets_on_table;
 
     int card_ct;
 
@@ -24,6 +25,7 @@ public:
    // bool num_sort(Card* a, Card* b);
     Card* remove(int i);
     int calc_num_sets();
+    void add_new_set(Set* s);
 };
 
 

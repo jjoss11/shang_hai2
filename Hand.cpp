@@ -23,8 +23,8 @@ void Hand::add(Card* c){
     card_ct++;
 }
 Card* Hand::remove(int i){
-    Card* result = *(cards_in_hand.begin() + i);
-    cards_in_hand.erase(cards_in_hand.begin() + i);
+    Card* result = *(cards_in_hand.begin() + (i-1));
+    cards_in_hand.erase(cards_in_hand.begin() + (i-1));
     card_ct--;
     return result;
 }
@@ -76,4 +76,7 @@ int Hand::calc_num_sets(){
 
     return num_sets;
 
+}
+void Hand::add_new_set(Set *s) {
+    sets_on_table.push_back(s);
 }
