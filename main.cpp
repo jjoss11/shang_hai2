@@ -5,6 +5,8 @@
 
 void play_round();
 bool laydown_check(int round);
+Set* get_set();
+void lay_down(int round);
 Player* p;
 Deck* d;
 
@@ -55,34 +57,81 @@ void play_round(){
         else
             "you did not enter a 1 or 2\n";
 
-       // cout << "The card you picked was the ";
-       // pick->to_string();
+       cout << "The card you picked was the ";
+       pick->to_string();
         p->hand->add(pick);
         p->hand->to_string();
 
         if(laydown_check(1)){
+            int choice;
             cout << "You have enough cards in your hand to lay down, would you like too? Enter 1 for yes, 2 for no: ";
+            cin >> choice;
+
+            if(choice == 1){
+                lay_down(1);
+            }
         }
         cout << "Enter the index of the card you would like to discard: ";
-
         int index;
         cin >> index;
 
         if(index > 0 && index <= p->hand->cards_in_hand.size()){
-            p->hand->add(pick);
-            d->add_to_discard_pile(p->hand->remove(index-1));
+            d->add_to_discard_pile(p->hand->remove(index));
             p->hand->set_sort();
         }
         else
             cout << "you did not enter a valid index\n";
-
     }
 }
 bool laydown_check(int round){
     switch(round){
         case 1:
             return(p->hand->calc_num_sets() == 2);
-
+    }
+}
+void lay_down(int round){
+    switch(round){
+        case 1:
+            cout << "=====Set 1 of 2=====\n";
+            Set* set_1 = get_set();
+            cout << "=====Set 2 of 2=====\n";
+            Set* set_2 = get_set();
+            p->hand->add_new_set(set_1);
+            p->hand->add_new_set(set_2);
 
     }
+}
+Set* get_set(){
+    Set* s = new Set();
+    int index;
+
+    p->hand->to_string();
+    cout << "Enter the index of first card you would like to include in your this set";
+    cin >> index;
+    s->add_card(p->hand->remove(index));
+
+    p->hand->to_string();
+    cout << "\nEnter the index of second card you would like to include in this set";
+    cin >> index;
+    s->add_card(p->hand->remove(index));
+
+    p->hand->to_string();
+    cout << "\nEnter the index of third card you would like to include in this set";
+    cin >> index;
+    s->add_card(p->hand->remove(index));
+
+    int more;
+    do {
+        p->hand->to_string();
+        cout << "\nWould you like to add more cards to this set? Enter 1 for yes, enter 2 for no: ";
+        cin >> more;
+        if (more == 1) {
+            p->hand->to_string();
+            cout << "Enter the index of next card you would like to include in this set";
+            cin >> index;
+            s->add_card(p->hand->remove(index));
+        }
+    }while(more == 1);
+
+    return s;
 }
