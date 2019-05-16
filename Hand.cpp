@@ -8,6 +8,7 @@ using namespace std;
 bool num_sort(Card *a, Card *b) {
     return a->value > b->value;
 }
+
 bool suit_sort(Card *a, Card* b){
     if(a->suit == b->suit)
         return a->value > b->value;
@@ -55,4 +56,24 @@ void Hand::set_sort() {
 }
 void Hand::run_sort() {
     sort(cards_in_hand.begin(), cards_in_hand.end(), suit_sort);
+}
+int Hand::calc_num_sets(){
+    int num_sets = 0;
+    vector<int> num_count(13, 0);
+    int num_jokers = 0;
+
+    for(auto c : cards_in_hand){
+        if(c->value != 0)
+            num_count[c->value - 1]++;
+        else
+            num_jokers++;
+    }
+
+    for(auto i : num_count){
+        if((i+num_jokers) >= 3)
+            num_sets++;
+    }
+
+    return num_sets;
+
 }

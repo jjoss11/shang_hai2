@@ -4,6 +4,7 @@
 #include "Player.h"
 
 void play_round();
+bool laydown_check(int round);
 Player* p;
 Deck* d;
 
@@ -17,9 +18,7 @@ int main() {
     p = new Player(p_name);*/
     p = new Player();
 
-    //play_round();
-    d = new Deck();
-    d->to_string();
+    play_round();
 
     return 0;
 }
@@ -38,15 +37,13 @@ void play_round(){
     //cout << "Your hand sorted is:\n";
     p->hand->to_string();
 
+    d->add_to_discard_pile(d->take_top());
     while(p->hand->cards_in_hand.size() != 0){
         //cout << d->discard[d->pile_i]->value;
-        if(d->discard.size() == 0)
-            cout << "There is no card on the discard pile, Enter 2 to take a card off the top: ";
-        else {
-            cout << "The top of the discard pile is the ";
-            d->discard.back()->to_string();
-            cout << "\nWould you like this card, or draw a new card? Enter 1 for Pile, 2 for Off the Top: ";
-        }
+        cout << "The top of the discard pile is the ";
+        d->discard.back()->to_string();
+        cout << "\nWould you like this card, or draw a new card? Enter 1 for Pile, 2 for Off the Top: ";
+
 
         int choice;
         Card* pick;
@@ -58,19 +55,20 @@ void play_round(){
         else
             "you did not enter a 1 or 2\n";
 
-        cout << "The card you picked was the ";
-        pick->to_string();
-
+       // cout << "The card you picked was the ";
+       // pick->to_string();
+        p->hand->add(pick);
         p->hand->to_string();
-        cout << "Enter the index of the card you would like to discard, if you'd like to discard the card you drew, enter 0: ";
+
+        if(laydown_check(1)){
+            cout << "You have enough cards in your hand to lay down, would you like too? Enter 1 for yes, 2 for no: ";
+        }
+        cout << "Enter the index of the card you would like to discard: ";
 
         int index;
         cin >> index;
 
-        if(index == 0){
-            d->add_to_discard_pile(pick);
-        }
-        else if(index > 0 && index <= p->hand->cards_in_hand.size()){
+        if(index > 0 && index <= p->hand->cards_in_hand.size()){
             p->hand->add(pick);
             d->add_to_discard_pile(p->hand->remove(index-1));
             p->hand->set_sort();
@@ -78,7 +76,13 @@ void play_round(){
         else
             cout << "you did not enter a valid index\n";
 
+    }
+}
+bool laydown_check(int round){
+    switch(round){
+        case 1:
+            return(p->hand->calc_num_sets() == 2);
+
 
     }
-
 }

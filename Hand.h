@@ -23,6 +23,7 @@ public:
     void set_sort();
    // bool num_sort(Card* a, Card* b);
     Card* remove(int i);
+    int calc_num_sets();
 };
 
 

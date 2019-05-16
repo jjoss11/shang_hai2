@@ -5,7 +5,8 @@
 #include "Deck.h"
 #include <iostream>
 #include <algorithm>
-
+#include <random>
+#include <ctime>
 using namespace std;
 
 
@@ -55,8 +56,10 @@ void Deck::to_string(){
     for(auto c: cards)
         c->to_string();
 }
+auto rng = std::default_random_engine{};
 void Deck::shuffle(){
-     std::random_shuffle(cards.begin(), cards.end());
+    srand(time(NULL));
+     std::shuffle(cards.begin(), cards.end(), rng);
 }
 Card* Deck::take_top(){
     Card* result = cards.back();
