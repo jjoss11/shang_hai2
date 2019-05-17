@@ -14,6 +14,7 @@ public:
     vector<Card*> cards_in_hand;
     vector<Set*> sets_on_table;
 
+    bool on_table;
     int card_ct;
 
     Hand();
@@ -26,6 +27,8 @@ public:
     Card* remove(int i);
     int calc_num_sets();
     void add_new_set(Set* s);
+    bool play_additional_card_check();
+    bool check_sets(Card* c);
 };
 
 

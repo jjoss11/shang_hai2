@@ -16,6 +16,7 @@ bool suit_sort(Card *a, Card* b){
         return a->suit < b->suit;
 }
 Hand::Hand(){
+    on_table = false;
     card_ct = 11;
 }
 void Hand::add(Card* c){
@@ -79,4 +80,20 @@ int Hand::calc_num_sets(){
 }
 void Hand::add_new_set(Set *s) {
     sets_on_table.push_back(s);
+}
+bool Hand::play_additional_card_check() {
+    bool flag = false;
+    for(auto c : cards_in_hand){
+        for(auto s : sets_on_table){
+            if(check_sets(c))
+                flag = true;
+        }
+    }
+}
+bool Hand::check_sets(Card* c){
+    for(auto s : sets_on_table){
+        if(s->rank == c->value)
+            return true;
+    }
+    return false;
 }
