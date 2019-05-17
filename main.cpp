@@ -71,6 +71,7 @@ void play_round(){
                 lay_down(1);
             }
         }
+
         cout << "Enter the index of the card you would like to discard: ";
         int index;
         cin >> index;
@@ -83,6 +84,7 @@ void play_round(){
             cout << "you did not enter a valid index\n";
     }
 }
+
 bool laydown_check(int round){
     switch(round){
         case 1:
