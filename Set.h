@@ -16,6 +16,7 @@ public:
     Set();
     void to_string();
     bool add_card(Card* c);
+    bool contains(Card* c);
 };
 
 

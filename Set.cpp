@@ -28,3 +28,10 @@ bool Set::add_card(Card *c) {
     }
     return true;
 }
+bool Set::contains(Card *c) {
+    for(auto card : cards){
+        if(c->equals(card))
+            return true;
+    }
+    return false;
+}
