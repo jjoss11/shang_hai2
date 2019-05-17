@@ -16,7 +16,7 @@ void Set::to_string() {
     }
 }
 bool Set::add_card(Card *c) {
-    if(rank != -1 && c->value == rank)
+    if((rank != -1 && c->value == rank) || c->value == 0)
         cards.push_back(c);
     else if(rank == -1) {
         cards.push_back(c);
