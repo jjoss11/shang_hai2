@@ -57,7 +57,6 @@ void Deck::to_string(){
     for(auto c: cards)
         c->to_string();
 }
-auto rng = std::default_random_engine{};
 void Deck::shuffle(){
     srand((unsigned int)time(NULL));
     std::random_shuffle(cards.begin(), cards.end());
