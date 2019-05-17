@@ -23,6 +23,7 @@ Deck::Deck(){
     cards.push_back(joker);
     cards.push_back(joker);
 
+   // srand(time(NULL));
     shuffle();
 
 }
@@ -58,8 +59,8 @@ void Deck::to_string(){
 }
 auto rng = std::default_random_engine{};
 void Deck::shuffle(){
-    srand(time(NULL));
-     std::shuffle(cards.begin(), cards.end(), rng);
+    srand((unsigned int)time(NULL));
+    std::random_shuffle(cards.begin(), cards.end());
 }
 Card* Deck::take_top(){
     Card* result = cards.back();
