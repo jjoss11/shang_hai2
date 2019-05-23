@@ -53,7 +53,7 @@ void Card::to_string(){
         default:
             break;
     }
-    cout << "\n";
+    cout << "\t";
 }
 
 bool Card::equals(Card *c) {
