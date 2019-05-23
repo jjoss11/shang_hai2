@@ -14,6 +14,7 @@ void Set::to_string() {
         c->to_string();
         i++;
     }
+    std::cout << "\n";
 }
 bool Set::add_card(Card *c) {
     if((rank != -1 && c->value == rank) || c->value == 0)
