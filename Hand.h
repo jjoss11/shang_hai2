@@ -29,6 +29,9 @@ public:
     void add_new_set(Set* s);
     bool play_additional_card_check();
     bool check_sets(Card* c);
+    int calc_natural_sets();
+    int calc_one_joker_sets();
+    int calc_two_joker_sets();
 
 };
 
