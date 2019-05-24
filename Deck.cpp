@@ -33,8 +33,13 @@ void Deck::to_string(){
         c->to_string();
 }
 void Deck::shuffle(){
-    srand((unsigned int)time(NULL));
-    std::random_shuffle(cards.begin(), cards.end());
+    int times = 1000;
+    while(times > 0) {
+        srand((unsigned int) time(nullptr)); // NOLINT(cert-msc32-c)
+        auto rng = default_random_engine{unsigned(rand())}; // NOLINT(cert-msc30-c)
+        std::shuffle(cards.begin(), cards.end(), rng);
+        times--;
+    }
 }
 Card* Deck::take_top(){
     Card* result = cards.back();
