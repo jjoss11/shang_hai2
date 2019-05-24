@@ -8,7 +8,6 @@ using namespace std;
 bool num_sort(Card *a, Card *b) {
     return a->value > b->value;
 }
-
 bool suit_sort(Card *a, Card* b){
     if(a->suit == b->suit)
         return a->value > b->value;
@@ -38,21 +37,15 @@ void Hand::to_string(){
     }
     cout << "\n";
 }
-int Hand::calc_value() {
-    int total = 0;
-    for(auto c : cards_in_hand){
-        if(c->value = 1)
-            total+=15;
-        else if(c->value > 1 && c->value < 10)
-            total+= 5;
-        else if(c->value > 9 && c->value < 14)
-            total+=10;
-        else
-            total+=50;
-    }
-    return total;
+float Hand::calc_value() {
+    int nat_sets = calc_natural_sets();
+    int pairs = calc_pairs();
+    int jokers = calc_jokers();
+    int useless = calc_singles();
+    if(useless == 0)
+        useless = 1;
+    return (float)(3*nat_sets + 2*pairs + jokers)/ (float)useless;
 }
-
 void Hand::set_sort() {
    sort(cards_in_hand.begin(), cards_in_hand.end(), num_sort);
 }
@@ -101,38 +94,55 @@ int Hand::calc_natural_sets(){
     return num_sets;
 }
 int Hand::calc_one_joker_sets(){
-    int num_sets = 0;
-    int num_jokers = 0;
-    vector<int> num_count(13, 0);
-
-    for(auto c : cards_in_hand){
-        if(c->value != 0)
-            num_count[c->value - 1]++;
-        else
-            num_jokers++;
-    }
-    for(auto i : num_count){
-        if(i == 2){
-            num_sets++;
-        }
-    }
-    return min(num_sets, num_jokers);
+    return min(calc_pairs(), calc_jokers());
 }
 int Hand::calc_two_joker_sets() {
-    int num_sets = 0;
-    int num_jokers = 0;
+    int jokers = calc_jokers();
+    if (jokers < 2)
+        return 0;
+    else {
+
+        return min(calc_singles(), jokers / 2);
+    }
+}
+int Hand::calc_pairs(){
+    int num_pairs = 0;
     vector<int> num_count(13, 0);
 
     for(auto c : cards_in_hand){
         if(c->value != 0)
             num_count[c->value - 1]++;
-        else
+    }
+
+    for(auto i : num_count){
+        if(i == 2)
+            num_pairs++;
+    }
+    return num_pairs;
+}
+int Hand::calc_jokers(){
+    int num_jokers = 0;
+
+    for(auto c : cards_in_hand){
+        if(c->value == 0)
             num_jokers++;
     }
-    for(auto i : num_count){
-        if(i == 1){
-            num_sets++;
-        }
+
+    return num_jokers;
+}
+int Hand::calc_singles(){
+    int num_sing = 0;
+    vector<int> num_count(13, 0);
+
+    for(auto c : cards_in_hand){
+        if(c->value != 0)
+            num_count[c->value - 1]++;
+
     }
-    return min(num_sets, num_jokers);
+
+    for(auto i : num_count){
+        if(i == 1)
+            num_sing++;
+    }
+    return num_sing;
 }
