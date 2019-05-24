@@ -11,16 +11,14 @@ class Deck {
 public:
     std::vector<Card*> cards;
     std::vector<Card*> discard;
-    //int top_i;
-   // int pile_i;
 
     Deck();
     void to_string();
-    //void fill();
     void shuffle();
     Card* take_top();
     void add_to_discard_pile(Card* card);
     Card* pick_off_pile();
+    void remove_card(Card*);
 };
 
 
