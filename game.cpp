@@ -3,7 +3,7 @@
 
 #include "Player.h"
 
-void play_round();
+void play_round(int round);
 bool laydown_check(int round);
 Set* get_set();
 void lay_down(int round);
@@ -20,12 +20,12 @@ int main() {
     p = new Player(p_name);*/
     p = new Player();
 
-    play_round();
+    play_round(1);
 
     return 0;
 }
 
-void play_round(){
+void play_round(int round){
     d = new Deck();
     //d->fill();
     //d->shuffle();
@@ -65,13 +65,13 @@ void play_round(){
         p->hand->add(pick);
         p->hand->to_string();
 
-        if(laydown_check(1) && !p->hand->on_table){
+        if(laydown_check(round) && !p->hand->on_table){
             int choice;
             cout << "You have enough cards in your hand to lay down, would you like to do so? Enter 1 for yes, 2 for no: ";
             cin >> choice;
 
             if(choice == 1){
-                lay_down(1);
+                lay_down(round);
             }
         }
         int add_to_set = 1;
@@ -93,7 +93,7 @@ void play_round(){
 
             }
         }
-        p->hand->to_string();
+        //p->hand->to_string();
         cout << "Enter the index of the card you would like to discard: ";
         int index;
         cin >> index;
