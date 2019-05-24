@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-
 #include "Player.h"
+#include "monte_carlo_advisor.h";
+using namespace std;
 
 void play_round(int round);
 bool laydown_check(int round);
@@ -32,12 +33,12 @@ void play_round(int round){
     for(int i = 0; i < 11; i++){
         p->hand->add(d->take_top());
     }
-    cout << "Your hand starting off is:\n";
+   // cout << "Your hand starting off is:\n";
    // p->hand->to_string();
     p->hand->set_sort();
 
     //cout << "Your hand sorted is:\n";
-    p->hand->to_string();
+    // p->hand->to_string();
 
     d->add_to_discard_pile(d->take_top());
     cout << "\n";
@@ -45,6 +46,8 @@ void play_round(int round){
         //cout << d->discard[d->pile_i]->value;
         cout << "The top of the discard pile is the: ";
         d->discard.back()->to_string();
+        cout << "\n\n";
+        p->hand->to_string();
         cout << "\n";
         cout << "\nWould you like this card, or draw a new card? Enter 1 for Pile, 2 for Off the Top: ";
 
@@ -59,9 +62,9 @@ void play_round(int round){
         else
             "you did not enter a 1 or 2\n";
 
-       cout << "The card you picked was the ";
+       cout << "\nThe card you picked was the ";
        pick->to_string();
-       cout << "\n";
+       cout << "\n\n";
         p->hand->add(pick);
         p->hand->to_string();
 
@@ -94,10 +97,11 @@ void play_round(int round){
             }
         }
         //p->hand->to_string();
+        mc(p->hand, 1200);
         cout << "Enter the index of the card you would like to discard: ";
         int index;
         cin >> index;
-
+        cout << "\n----------------------------------------------\n----------------------------------------------\n";
         if(index > 0 && index <= p->hand->cards_in_hand.size()){
             d->add_to_discard_pile(p->hand->remove(index));
             p->hand->set_sort();
@@ -116,9 +120,9 @@ bool laydown_check(int round){
 void lay_down(int round){
     switch(round){
         case 1:
-            cout << "=====Set 1 of 2=====\n";
+            cout << "\n\n==========Set 1 of 2==========\n\n";
             Set* set_1 = get_set();
-            cout << "=====Set 2 of 2=====\n";
+            cout << "\n\n==========Set 2 of 2==========\n\n";
             Set* set_2 = get_set();
             p->hand->add_new_set(set_1);
             p->hand->add_new_set(set_2);
@@ -130,24 +134,26 @@ void lay_down(int round){
 Set* get_set(){
     Set* s = new Set();
     int index;
+    do {
+        p->hand->to_string();
+        cout << "Enter the index of first card you would like to include in this set: ";
+        cin >> index;
+        cout << "\n";
+    }while(!s->add_card(p->hand->remove(index)));
 
-    p->hand->to_string();
-    cout << "Enter the index of first card you would like to include in this set: ";
-    cin >> index;
-    cout << "\n";
-    s->add_card(p->hand->remove(index));
+    do {
+        p->hand->to_string();
+        cout << "Enter the index of second card you would like to include in this set: ";
+        cin >> index;
+        cout << "\n";
+    }while(!s->add_card(p->hand->remove(index)));
 
-    p->hand->to_string();
-    cout << "\nEnter the index of second card you would like to include in this set: ";
-    cin >> index;
-    cout << "\n";
-    s->add_card(p->hand->remove(index));
-
-    p->hand->to_string();
-    cout << "\nEnter the index of third card you would like to include in this set: ";
-    cin >> index;
-    cout << "\n";
-    s->add_card(p->hand->remove(index));
+    do {
+        p->hand->to_string();
+        cout << "Enter the index of third card you would like to include in this set: ";
+        cin >> index;
+        cout << "\n";
+    }while(!s->add_card(p->hand->remove(index)));
 
     int more;
     do {
@@ -156,11 +162,12 @@ Set* get_set(){
         cin >> more;
         cout << "\n";
         if (more == 1) {
-            p->hand->to_string();
-            cout << "Enter the index of next card you would like to include in this set";
-            cin >> index;
-            cout << "\n";
-            s->add_card(p->hand->remove(index));
+            do {
+                p->hand->to_string();
+                cout << "Enter the index of the next card you would like to include in this set: ";
+                cin >> index;
+                cout << "\n";
+            }while(!s->add_card(p->hand->remove(index)));
         }
     }while(more == 1);
 
