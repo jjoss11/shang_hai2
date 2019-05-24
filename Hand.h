@@ -7,6 +7,7 @@
 #include "Deck.h"
 #include "Card.h"
 #include "Set.h"
+#include "Run.h"
 #include <vector>
 using namespace std;
 class Hand {
