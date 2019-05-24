@@ -8,6 +8,7 @@
 #include <vector>
 
 class Run {
+public:
     Suit suit;
     std::vector<Card*> cards;
 
