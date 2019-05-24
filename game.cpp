@@ -1,7 +1,7 @@
+#include "Player.h"
+#include "monte_carlo_advisor.h"
 #include <iostream>
 #include <string>
-#include "Player.h"
-#include "monte_carlo_advisor.h";
 using namespace std;
 
 void play_round(int round);
@@ -42,7 +42,7 @@ void play_round(int round){
 
     d->add_to_discard_pile(d->take_top());
     cout << "\n";
-    while(p->hand->cards_in_hand.size() != 0){
+    while(!p->hand->cards_in_hand.empty()){
         //cout << d->discard[d->pile_i]->value;
         cout << "The top of the discard pile is the: ";
         d->discard.back()->to_string();
@@ -53,14 +53,14 @@ void play_round(int round){
 
 
         int choice;
-        Card* pick;
+        Card* pick = new Card();
         cin >> choice;
         if(choice == 1)
             pick = d->pick_off_pile();
         else if(choice == 2)
             pick = d->take_top();
         else
-            "you did not enter a 1 or 2\n";
+            cout << "you did not enter a 1 or 2\n";
 
        cout << "\nThe card you picked was the ";
        pick->to_string();
@@ -69,11 +69,11 @@ void play_round(int round){
         p->hand->to_string();
 
         if(laydown_check(round) && !p->hand->on_table){
-            int choice;
+            int l_choice;
             cout << "You have enough cards in your hand to lay down, would you like to do so? Enter 1 for yes, 2 for no: ";
-            cin >> choice;
+            cin >> l_choice;
 
-            if(choice == 1){
+            if(l_choice == 1){
                 lay_down(round);
             }
         }
@@ -115,19 +115,55 @@ bool laydown_check(int round){
     switch(round){
         case 1:
             return(p->hand->calc_num_sets() >= 2);
+        case 2:
+            return false;
+        case 3:
+            return false;
+        case 4:
+            return false;
+        case 5:
+            return false;
+        case 6:
+            return false;
+        case 7:
+            return false;
+        default:
+            cout << "you goofed\n";
+            return false;
     }
 }
 void lay_down(int round){
+    Set* set_1;
+    Set* set_2;
+    /*Set* set_3;
+    Run* run_1;
+    Run* run_2;
+    Run* run3;*/
+
     switch(round){
         case 1:
             cout << "\n\n==========Set 1 of 2==========\n\n";
-            Set* set_1 = get_set();
+            set_1 = get_set();
             cout << "\n\n==========Set 2 of 2==========\n\n";
-            Set* set_2 = get_set();
+            set_2 = get_set();
             p->hand->add_new_set(set_1);
             p->hand->add_new_set(set_2);
             p->hand->on_table = true;
             break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        default:
+            cout << "you goofed\n";
 
     }
 }
