@@ -68,6 +68,7 @@ void play_round(int round){
         p->hand->add(pick);
         p->hand->to_string();
 
+
         if(laydown_check(round) && !p->hand->on_table){
             int l_choice;
             cout << "You have enough cards in your hand to lay down, would you like to do so? Enter 1 for yes, 2 for no: ";
@@ -77,6 +78,7 @@ void play_round(int round){
                 lay_down(round);
             }
         }
+
         int add_to_set = 1;
         while(p->hand->play_additional_card_check() && add_to_set == 1){
             cout << "You can play another card on what is already on the table, would you like too? Enter 1 for yes, 2 for no: ";
@@ -97,13 +99,14 @@ void play_round(int round){
             }
         }
         //p->hand->to_string();
-        mc(p->hand, 1200);
+        p->hand->set_sort();
+        mc(p->hand, 12);
         cout << "Enter the index of the card you would like to discard: ";
         int index;
         cin >> index;
         cout << "\n----------------------------------------------\n----------------------------------------------\n";
         if(index > 0 && index <= p->hand->cards_in_hand.size()){
-            d->add_to_discard_pile(p->hand->remove(index));
+            d->add_to_discard_pile(p->hand->remove(index - 1));
             p->hand->set_sort();
         }
         else
