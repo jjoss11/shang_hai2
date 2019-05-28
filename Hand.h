@@ -18,12 +18,12 @@ public:
     bool on_table;
     int card_ct;
 
-    float value;
+    int value;
 
     Hand();
     void add(Card* card);
     void to_string();
-    float calc_value();
+    int calc_value();
     void run_sort();
     void set_sort();
    // bool num_sort(Card* a, Card* b);

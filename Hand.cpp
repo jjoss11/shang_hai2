@@ -23,8 +23,8 @@ void Hand::add(Card* c){
     card_ct++;
 }
 Card* Hand::remove(int i){
-    Card* result = *(cards_in_hand.begin() + (i-1));
-    cards_in_hand.erase(cards_in_hand.begin() + (i-1));
+    Card* result = *(cards_in_hand.begin() + i);
+    cards_in_hand.erase(cards_in_hand.begin() + i);
     card_ct--;
     return result;
 }
@@ -37,14 +37,26 @@ void Hand::to_string(){
     }
     cout << "\n";
 }
-float Hand::calc_value() {
-    int nat_sets = calc_natural_sets();
-    int pairs = calc_pairs();
-    int jokers = calc_jokers();
-    int useless = calc_singles();
-    if(useless == 0)
-        useless = 1;
-    return (float)(3*nat_sets + 2*pairs + jokers)/ (float)useless;
+int Hand::calc_value() {
+    vector<int> hand_vals(13, 0);
+    int num_jokers = 0;
+    int value = 0;
+
+    for(auto c : cards_in_hand){
+        if(c->value != 0)
+            hand_vals[c->value - 1]++;
+        else
+            num_jokers++;
+    }
+    for(int i : hand_vals){
+        if(i >= 3)
+            value += 3*i;
+        else if(i == 2)
+            value += 2*i;
+    }
+    value += 2*num_jokers;
+
+    return value;
 }
 void Hand::set_sort() {
    sort(cards_in_hand.begin(), cards_in_hand.end(), num_sort);
