@@ -5,7 +5,7 @@
 #include "monte_carlo_advisor.h"
 #include <map>
 void mc(Hand* o_hand, int sims){
-    float max_value = -1;
+    int max_value = -1;
     int max_index = -1;
     for(int i = 0; i < o_hand->cards_in_hand.size(); i++){
         //cout << "i is " << i << " ";

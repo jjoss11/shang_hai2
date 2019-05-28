@@ -76,8 +76,7 @@ void play_round(int round) {
 
         if (laydown_check(round) && !p->hand->on_table) {
             int l_choice;
-            cout
-                    << "You have enough cards in your hand to lay down, would you like to do so? Enter 1 for yes, 2 for no: ";
+            cout << "You have enough cards in your hand to lay down, would you like to do so? Enter 1 for yes, 2 for no: ";
             cin >> l_choice;
 
             if (l_choice == 1) {
@@ -87,8 +86,7 @@ void play_round(int round) {
 
         int add_to_set = 1;
         while (p->hand->play_additional_card_check() && add_to_set == 1) {
-            cout
-                    << "You can play another card on what is already on the table, would you like too? Enter 1 for yes, 2 for no: ";
+            cout << "You can play another card on what is already on the table, would you like too? Enter 1 for yes, 2 for no: ";
             cin >> add_to_set;
             if (add_to_set == 1) {
                 int index;
