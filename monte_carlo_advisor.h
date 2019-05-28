@@ -11,7 +11,7 @@ using namespace std;
 
 void mc(Hand*, int);
 void mc_card_combos(Hand*, vector<int>, int, int, int, int, vector<int>, vector<int>, vector<int>);
-float mc_expected_val(Hand*, int, int);
+int mc_expected_val(Hand*, int, int);
 
 
 
