@@ -2,14 +2,19 @@
 #include "monte_carlo_advisor.h"
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 void play_round(int round);
+
 bool laydown_check(int round);
-Set* get_set();
+
+Set *get_set();
+
 void lay_down(int round);
-Player* p;
-Deck* d;
+
+Player *p;
+Deck *d;
 
 int main() {
     string p_name;
@@ -26,15 +31,15 @@ int main() {
     return 0;
 }
 
-void play_round(int round){
+void play_round(int round) {
     d = new Deck();
     //d->fill();
     //d->shuffle();
-    for(int i = 0; i < 11; i++){
+    for (int i = 0; i < 11; i++) {
         p->hand->add(d->take_top());
     }
-   // cout << "Your hand starting off is:\n";
-   // p->hand->to_string();
+    // cout << "Your hand starting off is:\n";
+    // p->hand->to_string();
     p->hand->set_sort();
 
     //cout << "Your hand sorted is:\n";
@@ -42,7 +47,7 @@ void play_round(int round){
 
     d->add_to_discard_pile(d->take_top());
     cout << "\n";
-    while(!p->hand->cards_in_hand.empty()){
+    while (!p->hand->cards_in_hand.empty()) {
         //cout << d->discard[d->pile_i]->value;
         cout << "The top of the discard pile is the: ";
         d->discard.back()->to_string();
@@ -53,44 +58,46 @@ void play_round(int round){
 
 
         int choice;
-        Card* pick = new Card();
+        Card *pick = new Card();
         cin >> choice;
-        if(choice == 1)
+        if (choice == 1)
             pick = d->pick_off_pile();
-        else if(choice == 2)
+        else if (choice == 2)
             pick = d->take_top();
         else
             cout << "you did not enter a 1 or 2\n";
 
-       cout << "\nThe card you picked was the ";
-       pick->to_string();
-       cout << "\n\n";
+        cout << "\nThe card you picked was the ";
+        pick->to_string();
+        cout << "\n\n";
         p->hand->add(pick);
         p->hand->to_string();
 
 
-        if(laydown_check(round) && !p->hand->on_table){
+        if (laydown_check(round) && !p->hand->on_table) {
             int l_choice;
-            cout << "You have enough cards in your hand to lay down, would you like to do so? Enter 1 for yes, 2 for no: ";
+            cout
+                    << "You have enough cards in your hand to lay down, would you like to do so? Enter 1 for yes, 2 for no: ";
             cin >> l_choice;
 
-            if(l_choice == 1){
+            if (l_choice == 1) {
                 lay_down(round);
             }
         }
 
         int add_to_set = 1;
-        while(p->hand->play_additional_card_check() && add_to_set == 1){
-            cout << "You can play another card on what is already on the table, would you like too? Enter 1 for yes, 2 for no: ";
+        while (p->hand->play_additional_card_check() && add_to_set == 1) {
+            cout
+                    << "You can play another card on what is already on the table, would you like too? Enter 1 for yes, 2 for no: ";
             cin >> add_to_set;
-            if(add_to_set == 1){
+            if (add_to_set == 1) {
                 int index;
                 cout << "Enter the index of the card you would like to lay down:";
                 cin >> index;
-                Card* play = p->hand->remove(index);
+                Card *play = p->hand->remove(index);
 
-                for(auto s : p->hand->sets_on_table){
-                    if(s->rank == play->value){
+                for (auto s : p->hand->sets_on_table) {
+                    if (s->rank == play->value) {
                         s->add_card(play);
                         break;
                     }
@@ -105,19 +112,18 @@ void play_round(int round){
         int index;
         cin >> index;
         cout << "\n----------------------------------------------\n----------------------------------------------\n";
-        if(index > 0 && index <= p->hand->cards_in_hand.size()){
+        if (index > 0 && index <= p->hand->cards_in_hand.size()) {
             d->add_to_discard_pile(p->hand->remove(index - 1));
             p->hand->set_sort();
-        }
-        else
+        } else
             cout << "you did not enter a valid index\n";
     }
 }
 
-bool laydown_check(int round){
-    switch(round){
+bool laydown_check(int round) {
+    switch (round) {
         case 1:
-            return(p->hand->calc_num_sets() >= 2);
+            return (p->hand->calc_num_sets() >= 2);
         case 2:
             return false;
         case 3:
@@ -135,15 +141,16 @@ bool laydown_check(int round){
             return false;
     }
 }
-void lay_down(int round){
-    Set* set_1;
-    Set* set_2;
+
+void lay_down(int round) {
+    Set *set_1;
+    Set *set_2;
     /*Set* set_3;
     Run* run_1;
     Run* run_2;
     Run* run3;*/
 
-    switch(round){
+    switch (round) {
         case 1:
             cout << "\n\n==========Set 1 of 2==========\n\n";
             set_1 = get_set();
@@ -170,29 +177,30 @@ void lay_down(int round){
 
     }
 }
-Set* get_set(){
-    Set* s = new Set();
+
+Set *get_set() {
+    Set *s = new Set();
     int index;
     do {
         p->hand->to_string();
         cout << "Enter the index of first card you would like to include in this set: ";
         cin >> index;
         cout << "\n";
-    }while(!s->add_card(p->hand->remove(index)));
+    } while (!s->add_card(p->hand->remove(index)));
 
     do {
         p->hand->to_string();
         cout << "Enter the index of second card you would like to include in this set: ";
         cin >> index;
         cout << "\n";
-    }while(!s->add_card(p->hand->remove(index)));
+    } while (!s->add_card(p->hand->remove(index)));
 
     do {
         p->hand->to_string();
         cout << "Enter the index of third card you would like to include in this set: ";
         cin >> index;
         cout << "\n";
-    }while(!s->add_card(p->hand->remove(index)));
+    } while (!s->add_card(p->hand->remove(index)));
 
     int more;
     do {
@@ -206,9 +214,9 @@ Set* get_set(){
                 cout << "Enter the index of the next card you would like to include in this set: ";
                 cin >> index;
                 cout << "\n";
-            }while(!s->add_card(p->hand->remove(index)));
+            } while (!s->add_card(p->hand->remove(index)));
         }
-    }while(more == 1);
+    } while (more == 1);
 
     return s;
 }
