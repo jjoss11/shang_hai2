@@ -12,21 +12,24 @@
 using namespace std;
 class Hand {
 public:
-    vector<Card*> cards_in_hand;
+
+    vector<Card*> cards_in_hand; // should probably be private
     vector<Set*> sets_on_table;
 
-    bool on_table;
-    int card_ct;
+    bool on_table; //bool to store whether a player has lain down yet
+    int card_ct; //I think i can do without this
 
     int value;
 
+    /*
+     * many of these can be private functions
+     */
     Hand();
     void add(Card* card);
     void to_string();
     int calc_value();
     void run_sort();
     void set_sort();
-   // bool num_sort(Card* a, Card* b);
     Card* remove(int i);
     int calc_num_sets();
     void add_new_set(Set* s);

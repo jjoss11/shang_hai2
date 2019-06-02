@@ -9,6 +9,10 @@
 
 using namespace std;
 
+/*
+ * flying by the seat of my pants on this one.
+ * Taken from skamchee's "Poker Game" GitHub repositor and adapted (butchered/mangled, more like) to fit my purposes.
+ */
 void mc(Hand*, int);
 void mc_card_combos(Hand*, vector<int>, int, int, int, int, vector<int>, vector<int>, vector<int>);
 int mc_expected_val(Hand*, int, int);

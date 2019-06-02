@@ -14,6 +14,7 @@ public:
     Hand* hand;
     int score;
     string name;
+    bool is_ai;
 
     Player();
     Player(string name);

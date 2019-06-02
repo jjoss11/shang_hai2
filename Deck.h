@@ -9,8 +9,8 @@
 
 class Deck {
 public:
-    std::vector<Card*> cards;
-    std::vector<Card*> discard;
+    std::vector<Card*> cards;   //portion of deck with cards "face down" for players to draw from
+    std::vector<Card*> discard; //discard pile
 
     Deck();
     void to_string();

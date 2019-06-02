@@ -11,12 +11,13 @@ Card::Card(){
     value = -1;
     suit = null_suit;
 }
+
 Card::Card(int v, Suit s){
     value = v;
     suit = s;
 }
 
-void Card::to_string(){
+void Card::to_string(){  //e.g. 3 of Diamonds, J of Spades, etc.
     switch(value) {
         case 11:
             cout << "J of ";
@@ -53,7 +54,6 @@ void Card::to_string(){
         default:
             break;
     }
-    cout << "\t";
 }
 
 bool Card::equals(Card *c) {

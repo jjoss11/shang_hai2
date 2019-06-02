@@ -8,8 +8,8 @@
 typedef enum{null_suit = -1, Spades = 0, Hearts, Clubs, Diamonds}Suit;
 class Card {
 public:
-    int value;
-    Suit suit;
+    int value;  //values  A - K are integers 1 - 13, Jokers are 0
+    Suit suit;  //self-explanatory, Jokers are null_suit
 
     Card();
     Card(int v, Suit s);

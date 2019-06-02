@@ -16,3 +16,9 @@ void Run::add_card(Card* c) {
         cards.push_back(c);
     }
 }
+/*
+ * More functions will be added (probably to Hand.cpp/.h) as I move on to developing rounds which need
+ * runs for the player to lay down
+ *
+ * Similar to how the functions relating to sets were fleshed out working on Round 1
+ */

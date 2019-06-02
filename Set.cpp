@@ -13,10 +13,12 @@ void Set::to_string() {
         std::cout << "[" << i << "] ";
         c->to_string();
         i++;
+        std::cout << "\t";
     }
     std::cout << "\n";
 }
 bool Set::add_card(Card *c) {
+    //takes a card, checks to see if it legally fits in the set & adds it to the set
     if((rank != -1 && c->value == rank) || c->value == 0)
         cards.push_back(c);
     else if(rank == -1) {
@@ -30,6 +32,8 @@ bool Set::add_card(Card *c) {
     return true;
 }
 bool Set::contains(Card *c) {
+    //don't know if this is needed
+    //checks to see if a given card, is already in a set
     for(auto card : cards){
         if(c->equals(card))
             return true;

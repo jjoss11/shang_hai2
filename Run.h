@@ -9,7 +9,7 @@
 
 class Run {
 public:
-    Suit suit;
+    Suit suit; //storing the suit the run is in and which cards are in the run
     std::vector<Card*> cards;
 
     Run();
